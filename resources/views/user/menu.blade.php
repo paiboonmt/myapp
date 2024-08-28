@@ -5,24 +5,16 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      {{-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
-      </li> --}}
-      {{-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-
-      <li class="nav-item">
+    <ul class="navbar-nav me-5">
+      <li class="nav-item ">
         <a class="nav-link" href="#" role="button">
             <i class="far fa-smile"></i>
-          <span style="text-transform: uppercase">{{ Auth::user()->name }}</span>
+          <span style="text-transform: uppercase"> Welcome : {{ Auth::user()->name }}</span>
         </a>
       </li>
-
     </ul>
   </nav>
   <!-- /.navbar -->
