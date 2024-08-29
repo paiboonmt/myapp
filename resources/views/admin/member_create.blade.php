@@ -137,7 +137,14 @@
                         <div class="row">
                             <input type="file" name="image" class="form-control" >
                         </div>
-                      
+                        @error('image')
+                            <div class="input-group">
+                                <div class="my-1">
+                                    <span class="text-danger">{{ $message }}</span>
+                                </div>
+                            </div>
+                        @enderror
+
                     </div>
 
                 </div>
