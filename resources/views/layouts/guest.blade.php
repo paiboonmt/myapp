@@ -4,9 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link rel="icon" type="image/x-icon" href="{{asset('images/logo.png')}}">
-        {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-        <title>Login</title>
+        <title>PUNCHKING LOGIN</title>
+        <link rel="icon" type="image/x-icon" href="{{asset('images/logo.ico')}}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,7 +20,7 @@
                 {{-- <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a> --}}
-                <img src="{{asset('images/logo.png')}}" alt="">
+                <img  src="{{asset('images/logo.png')}}" width="450px" height="450px">
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">

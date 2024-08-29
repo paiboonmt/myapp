@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\TopupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\SponsorController;
@@ -33,6 +34,16 @@ Route::middleware(['auth','user'])->group(function () {
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
+    // route('admin.member)
+    Route::get('/admin/member',[MemberController::class,'index'])->name('admin.member');
+    // route('admin.member)
+    Route::get('/admin/member_create',[MemberController::class,'create'])->name('admin.member_create');
+    // route('admin.member_save')
+    Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
+    
+    
+    // route('admin.capture')
+    Route::get('/admin/capture',[MemberController::class,'capture'])->name('admin.capture');
     //topup
     Route::get('/admin/topup-monney',[TopupController::class,'index'])->name('admin.topup-monney');
     Route::post('/admin/topup',[TopupController::class,'topup'])->name('admin.topup');
