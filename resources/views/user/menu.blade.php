@@ -23,8 +23,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="text-transform: uppercase">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{asset('/images/logo.png')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Web Application</span>
+      <img src="{{asset('/images/image-logo.png')}}" class="brand-image  elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">PUNCH KING</span>
     </a>
 
     <!-- Sidebar -->
@@ -33,6 +33,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            
             {{-- dashboard --}}
             <li class="nav-item">
                 <a href="{{route('user.dashboard')}}" class="nav-link {{ Request::is('user/dashboard') ? 'active' : '' }}">
@@ -42,21 +43,13 @@
                 </p>
                 </a>
             </li>
+
             {{-- sponsor active --}}
             <li class="nav-item">
-                <a href="{{route('user.sponsoractive')}}" class="nav-link {{ Request::is('user/sponsoractive','user/profile') ? 'active' : '' }}">
+                <a href="" class="nav-link">
                 <i class="nav-icon fas fa-user-clock"></i>
                 <p>
-                    Sponsor Active
-                </p>
-                </a>
-            </li>
-            {{-- sponsor expired --}}
-            <li class="nav-item">
-                <a href="{{route('user.exprired')}}" class="nav-link {{ Request::is('user/sponsorexpired') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-user-lock"></i>
-                <p>
-                    Sponsor Expired
+                    Member system
                 </p>
                 </a>
             </li>

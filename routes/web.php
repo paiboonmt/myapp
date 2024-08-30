@@ -41,12 +41,12 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/member_create',[MemberController::class,'create'])->name('admin.member_create');
     // route('admin.member_save')
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
-    
+
     // route('admin.product')
     Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');
     // route('admin.product_create')
     Route::post('/admin/product_create',[ProductController::class,'store'])->name('admin.product_create');
-    
+
     // route('admin.capture')
     Route::get('/admin/capture',[MemberController::class,'capture'])->name('admin.capture');
     //topup
@@ -58,4 +58,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/admin/register-card-insert',[TopupController::class,'register_card_inset'])->name('admin.register_card_inset');
     Route::get('/admin/card-delete/{id}',[TopupController::class,'card_delete'])->name('admin.card_delete');
     Route::post('/admin/card-update/{id}',[TopupController::class,'card_update'])->name('admin.card_update');
+});
+
+Route::middleware(['auth','user'])->group(function(){
+    // route('user.dashboard')
+    Route::get('/user/dashboard',[UserController::class,'index'])->name('user.dashboard');
 });
