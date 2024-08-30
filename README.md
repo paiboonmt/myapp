@@ -9,4 +9,7 @@
 
 <p align="center">
    <img src="https://img2.pic.in.th/pic/loginb708c3c39310f444.png" alt="login" border="0">
+    <hr>
+    <img src="https://github.com/laravel/breeze/blob/2.x/art/logo.svg">
+    <p>Multi-Authenticationn </p>
 </p>
