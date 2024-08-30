@@ -77,6 +77,16 @@
                       </ul>
                   </li>
 
+                  {{-- product --}}
+                  <li class="nav-item">
+                    <a href="{{ route('admin.product') }}" 
+                        class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}">
+                        <i class="fas fa-money-bill-alt nav-icon"></i>
+                        <p>product</p>
+                    </a>
+                  </li>
+
+
                   <li class="nav-item">
                       <a href="{{ route('admin.topup-monney') }}"
                           class="nav-link {{ Request::is(['admin/topup-monney', 'admin/topup']) ? 'active' : '' }}">

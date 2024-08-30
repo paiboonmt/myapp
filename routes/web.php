@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\TopupController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\SponsorController;
 use App\Http\Controllers\User\UserController;
@@ -41,6 +42,10 @@ Route::middleware(['auth','admin'])->group(function () {
     // route('admin.member_save')
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
     
+    // route('admin.product')
+    Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');
+    // route('admin.product_create')
+    Route::post('/admin/product_create',[ProductController::class,'store'])->name('admin.product_create');
     
     // route('admin.capture')
     Route::get('/admin/capture',[MemberController::class,'capture'])->name('admin.capture');

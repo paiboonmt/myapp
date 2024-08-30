@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\Purchase_history;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -53,6 +54,12 @@ class MemberController extends Controller
                     "address" => $request->address,
                     "comment" => $request->comment,
                     "image" => $imageName,
+            ]);
+
+            Purchase_history::create([
+                    "card_id" => $request->card_id,
+                    "product_id" => $request->visa_id,
+                    "date_of_buy" => date('Y-m-d'),
             ]);
 
         }
