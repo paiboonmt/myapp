@@ -79,10 +79,19 @@
 
                   {{-- product --}}
                   <li class="nav-item">
-                    <a href="{{ route('admin.product') }}" 
+                    <a href="{{ route('admin.product') }}"
                         class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}">
                         <i class="fas fa-money-bill-alt nav-icon"></i>
                         <p>product</p>
+                    </a>
+                  </li>
+
+                  {{-- nationality --}}
+                  <li class="nav-item">
+                    <a href="{{ route('admin.nationality') }}"
+                        class="nav-link {{ Request::is('admin/nationality') ? 'active' : '' }}">
+                        <i class="fas fa-language nav-icon"></i>
+                        <p>nationality</p>
                     </a>
                   </li>
 

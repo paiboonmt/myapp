@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,8 @@ class ProductController extends Controller
     public function index()
     {
         $title = 'Product';
-        return view('admin.product',compact('title'));
+        $data = Product::all();
+        return view('admin.product',compact('title','data'));
     }
 
     /**
@@ -73,6 +75,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::where('id',$id)->delete();
+        return to_route('admin.product');
     }
 }

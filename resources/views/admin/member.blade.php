@@ -5,14 +5,14 @@
         border-radius: 50px;
         height: 50px;
         padding: 5px
-        
+
     }
 </style>
 
 <div class="row">
     <div class="col p-1">
         <div class="card p-1">
-            <table class="table ">
+            <table class="table" id="example1">
                 <thead>
                     <tr>
                         <th>#</th>
