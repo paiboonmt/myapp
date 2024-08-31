@@ -54,6 +54,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/admin/nationality_create',[NationalityController::class,'create'])->name('admin.nationality_create');
     // route('admin.nationality_destroy')
     Route::delete('/admin/nationality_destroy/{id}',[NationalityController::class,'destroy'])->name('admin.nationality_destroy');
+    // route('admin.nationality_update')
+    Route::post('/admin/nationality_update/{id}',[NationalityController::class,'update'])->name('admin.nationality_update');
 
 
     // route('admin.capture')
