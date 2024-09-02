@@ -15,6 +15,7 @@ Route::get('/', function () {
 });
 
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -42,12 +43,16 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/member_create',[MemberController::class,'create'])->name('admin.member_create');
     // route('admin.member_save')
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
+
     // route('admin.product')
     Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');
     // route('admin.product_create')
     Route::post('/admin/product_create',[ProductController::class,'store'])->name('admin.product_create');
+    // route('admin.product_update')
+    Route::post('/admin/product_update/{id}',[ProductController::class,'update'])->name('admin.product_update');
     // route('admin.product_destroy')
     Route::delete('/admin/product_destroy/{id}',[ProductController::class,'destroy'])->name('admin.product_destroy');
+
     // route('admin.nationality')
     Route::get('/admin/nationality',[NationalityController::class,'index'])->name('admin.nationality');
     // route('admin.nationality_create')

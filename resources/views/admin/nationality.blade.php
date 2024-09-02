@@ -1,12 +1,22 @@
 @include('admin.header')
+<style>
+    h5 {
+        font-size: 30px;
+        text-transform: uppercase;
+    }
 
+    span {
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+</style>
 <div class="row">
     <div class="col p-2">
         <div class="card">
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <h4>Nationality</h4>
+                        <h5>Nationality</h5>
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
@@ -71,23 +81,22 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>
-                                    <form action="{{ route('admin.nationality_destroy', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
+                                    <button 
+                                        type="button"
+                                        class="btn btn-warning" 
+                                        data-toggle="modal"
+                                        data-target="#id{{ $item->id }}">
+                                        <i class="far fa-edit"></i> | Edit
+                                    </button>
 
-                                        {{-- <a href="#" class="btn btn-warning"><i class="far fa-edit"></i>|Edit</a> --}}
-                                        <button type="button" class="btn btn-warning" data-toggle="modal"
-                                            data-target="#id{{ $item->id }}">
-                                            <i class="far fa-edit"></i>|Edit
-                                        </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger delete-button" 
+                                        data-id="{{ $item->id }}">
+                                        <i class="fas fa-trash-alt"> | Delete</i>
+                                    </button>
 
-                                        <button class="btn btn-danger"
-                                            onclick="return confirm('Are you sure you want to delete this item?')">
-                                            <i class="fas fa-trash-alt"></i>|Trash
-                                        </button>
-
-                                    </form>
-                                </td>
+                                </td>   
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="id{{ $item->id }}" data-backdrop="static" data-keyboard="false"
@@ -190,3 +199,52 @@
         });
     </script>
 @endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event listener for delete button
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function () {
+                var itemId = this.getAttribute('data-id');
+
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Make AJAX request to delete the item
+                        $.ajax({
+                            url: '/admin/nationality_destroy/' + itemId,  // URL to your delete route
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'  // Include CSRF token
+                            },
+                            success: function (response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your item has been deleted.',
+                                    'success'
+                                ).then((result) =>{
+                                    location.reload();
+                                })
+                            },
+                            error: function (xhr) {
+                                Swal.fire(
+                                    'Failed!',
+                                    'There was a problem deleting your item.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>

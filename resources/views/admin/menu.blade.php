@@ -34,6 +34,7 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
+
                   {{-- dashboard --}}
                   <li class="nav-item">
                       <a href="{{ route('admin.dashboard') }}"
@@ -42,6 +43,7 @@
                           <p>Dashboard</p>
                       </a>
                   </li>
+
                   {{-- member system --}}
                   <li
                       class="nav-item {{ Request::is(['admin/member', 'admin/member_create', 'admin/capture']) ? 'menu-open' : '' }}">
@@ -67,13 +69,13 @@
                                   <p>create Member</p>
                               </a>
                           </li>
-                          <li class="nav-item">
+                          {{-- <li class="nav-item">
                               <a href="{{ route('admin.capture') }}"
                                   class="nav-link {{ Request::is(['admin/capture']) ? 'active' : '' }}">
                                   <i class="fas fa-tablet-alt nav-icon"></i>
                                   <p>capture</p>
                               </a>
-                          </li>
+                          </li> --}}
                       </ul>
                   </li>
 
@@ -81,7 +83,7 @@
                   <li class="nav-item">
                     <a href="{{ route('admin.product') }}"
                         class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}">
-                        <i class="fas fa-money-bill-alt nav-icon"></i>
+                        <i class="fab fa-product-hunt nav-icon"></i>
                         <p>product</p>
                     </a>
                   </li>
@@ -95,7 +97,7 @@
                     </a>
                   </li>
 
-
+                  {{-- topup --}}
                   <li class="nav-item">
                       <a href="{{ route('admin.topup-monney') }}"
                           class="nav-link {{ Request::is(['admin/topup-monney', 'admin/topup']) ? 'active' : '' }}">
@@ -104,6 +106,15 @@
                       </a>
                   </li>
 
+                  {{-- config --}}
+                  <li class="nav-item">
+                      <a href="#"
+                          class="nav-link">
+                          <i class="fas fa-cog nav-icon"></i>
+                          <p>Config</p>
+                          <i class="right fas fa-angle-left"></i>
+                      </a>
+                  </li>
 
                   {{-- logout --}}
                   <li class="nav-item">

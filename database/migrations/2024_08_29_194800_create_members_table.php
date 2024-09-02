@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('visa_id');
             $table->string('gender');
             $table->string('fname');
+            $table->string('product');
             $table->date('birthday');
             $table->string('nationality');
             $table->string('phone');

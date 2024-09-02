@@ -47,27 +47,23 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'detail' => 'required',
+        ]);
+        $data = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'detail' => $request->detail
+        ];
+        Product::where('id',$id)->update($data);
+        return to_route('admin.product');
     }
 
     /**
@@ -75,7 +71,11 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::where('id',$id)->delete();
-        return to_route('admin.product');
+        $item = Product::findOrFail($id);
+        $item->delete();
+
+        // Product::where('id',$id)->delete();
+        // return to_route('admin.product');
+        return response()->json(['success' => 'Item deleted successfully']);
     }
 }

@@ -13,7 +13,7 @@
                         {{-- card_id , visa_id --}}
                         <div class="row">
                             <div class="col-6">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Card number</span>
                                     </div>
@@ -23,7 +23,7 @@
                                 {{-- <span class="error invalid-feedback">{{$message}}</span> --}}
                             </div>
                             <div class="col-6">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Visa number</span>
                                     </div>
@@ -35,9 +35,9 @@
                         {{-- gender fname --}}
                         <div class="row">
                             <div class="col-3">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Gender</span>
+                                        <span class="input-group-text">Gender</span>
                                     </div>
                                     <select name="gender" class="form-control">
                                         <option value="Man">Man</option>
@@ -46,19 +46,34 @@
                                 </div>
                             </div>
                             <div class="col-9">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">First name | Last name</span>
+                                        <span class="input-group-text">First name | Last name</span>
                                     </div>
                                     <input type="text" class="form-control" name="fname" value="Paiboon Yaniwong">
                                 </div>
                                 {{-- <span class="error invalid-feedback">{{ $message }}</span> --}}
                             </div>
                         </div>
+                        {{-- product --}}
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Product</span>
+                                    </div>
+                                    <select name="product" class="form-control">
+                                        @foreach ($pro as $p)
+                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         {{-- birthday nationality --}}
                         <div class="row">
                             <div class="col-5">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Birth Day</span>
                                     </div>
@@ -66,12 +81,14 @@
                                 </div>
                             </div>
                             <div class="col-7">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Nationality</span>
                                     </div>
                                     <select name="nationality" class="form-control">
-                                        <option value="Thailand">Thailand</option>
+                                        @foreach ( $na as $n )
+                                            <option value="{{ $n->id }}">{{ $n->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -79,7 +96,7 @@
                         {{-- phone email --}}
                         <div class="row">
                             <div class="col-5">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Phone</span>
                                     </div>
@@ -88,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="col-7">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Eamil</span>
                                     </div>
@@ -99,7 +116,7 @@
                         {{-- Start Training  Expiry date --}}
                         <div class="row">
                             <div class="col-6">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Start Training</span>
                                     </div>
@@ -107,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="input-group mb-4">
+                                <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Expiry date</span>
                                     </div>
@@ -128,10 +145,12 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
 
                     <div class="col-md-4">
-                        <div class="row mb-4">
+
+                        <div class="row mb-2">
                             <img src="{{ asset('images/image-logo.png') }}" width="100%">
                         </div>
                         <div class="row">

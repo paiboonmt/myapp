@@ -18,6 +18,7 @@ class Member extends Model
         'visa_id',
         'gender',
         'fname',
+        'product',
         'birthday',
         'nationality',
         'phone',

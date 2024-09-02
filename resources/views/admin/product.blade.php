@@ -39,7 +39,7 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Product Name</label>
-                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                                <input type="text" class="form-control" name="name" autofocus value="{{ old('name') }}">
                                                 @error('name')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -60,9 +60,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-primary">SAVE ITEM</button>
+                                            <button type="button" class="btn btn-secondary"data-dismiss="modal">Close</button>
                                         </div>
                                     </form>
                                 </div>
@@ -80,7 +79,7 @@
                             <th>Product Name</th>
                             <th>Price</th>
                             <th>Detail</th>
-                            <th>Action | Edit | Delete</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,14 +93,60 @@
                                 <td>{{ number_format($item->price,2) }}</td>
                                 <td>{{ $item->detail }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-warning"><i class="far fa-edit"></i>|Edit</a>
-                                    <a href="#" class="btn btn-danger" onclick="return confirm('Are you sure delete it?');  event.preventDefault(); document.getElementById('delete-form-{{ $item->id }}').submit();">
-                                        <i class="fas fa-trash-alt"></i>|Trash
-                                    </a>
-                                    <form id="delete-form-{{ $item->id }}" action="{{ route('admin.product_destroy',$item->id) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#id{{ $item->id }}">
+                                        <i class="far fa-edit"></i> | Edit
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="id{{$item->id}}" data-backdrop="static" data-keyboard="false"
+                                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <form action="{{ route('admin.product_update',$item->id) }}" method="post">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">From create product</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label>Product Name</label>
+                                                            <input type="text" class="form-control" name="name" autofocus value="{{ $item->name }}">
+                                                            @error('name')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Price</label>
+                                                            <input type="number" class="form-control" name="price" value="{{ $item->price }}">
+                                                            @error('price')
+                                                                <div class="invalid-feedback">
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <textarea name="detail" class="form-control" placeholder="Detail" cols="30" rows="5">{{ $item->detail }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">SAVE ITEM</button>
+                                                        <button type="button" class="btn btn-secondary"data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    
+                                    <button class="btn btn-danger delete-button" data-id="{{ $item->id }}">
+                                        <i class="fas fa-trash-alt"> | Delete</i>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -113,3 +158,52 @@
 </div>
 
 @include('admin.footer')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event listener for delete button
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function () {
+                var itemId = this.getAttribute('data-id');
+
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Make AJAX request to delete the item
+                        $.ajax({
+                            url: '/admin/product_destroy/' + itemId,  // URL to your delete route
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'  // Include CSRF token
+                            },
+                            success: function (response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your item has been deleted.',
+                                    'success'
+                                ).then((result) =>{
+                                    location.reload();
+                                })
+                            },
+                            error: function (xhr) {
+                                Swal.fire(
+                                    'Failed!',
+                                    'There was a problem deleting your item.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>

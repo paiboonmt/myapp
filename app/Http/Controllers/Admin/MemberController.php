@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\Nationality;
+use App\Models\Product;
 use App\Models\Purchase_history;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -17,13 +20,21 @@ class MemberController extends Controller
 
     public function index(){
         $title = 'Member';
-        $data = Member::all();
+        // $data = Member::all();
+
+        $data = DB::table('members')
+            ->join('products','members.product','=','products.id')
+            ->join('nationalities','members.nationality','=','nationalities.id')
+            ->select('members.*', 'products.name AS pname', 'nationalities.name AS nname')
+            ->get();
         return view('admin.member', compact('title','data'));
     }
 
     public function create(){
         $title = 'Create Member';
-        return view('admin.member_create', compact('title'));   
+        $na = Nationality::all();
+        $pro = Product::all();
+        return view('admin.member_create', compact('title','na','pro'));   
     }
 
     public function save( Request $request ){
@@ -45,6 +56,7 @@ class MemberController extends Controller
                     "visa_id" => $request->visa_id,
                     "gender" => $request->gender,
                     "fname" => $request->fname,
+                    "product" => $request->product,
                     "birthday" => $request->birthday,
                     "nationality" => $request->nationality,
                     "phone" => $request->phone,

@@ -20,7 +20,8 @@ class NationalityController extends Controller
 
     public function destroy(string $id){
         Nationality::where('id',$id)->delete();
-        return to_route('admin.nationality',session()->flash('delete-success'));
+        // return to_route('admin.nationality',session()->flash('delete-success'));
+        return response()->json(['success' => 'Item deleted successfully']);
     }
 
     public function update(Request $request,string $id){

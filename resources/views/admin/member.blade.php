@@ -18,7 +18,8 @@
                         <th>#</th>
                         <th>Image</th>
                         <th>Card id</th>
-                        <th>First name Last name</th>
+                        <th>Name</th>
+                        <th>Product</th>
                         <th>Nationality</th>
                         <th>Address</th>
                         <th>Start Training</th>
@@ -37,7 +38,8 @@
                             </td>
                             <td>{{ $item->card_id }}</td>
                             <td>{{ $item->fname }}</td>
-                            <td>{{ $item->nationality }}</td>
+                            <td>{{ $item->pname }}</td>
+                            <td>{{ $item->nname }}</td>
                             <td>{{ $item->address }}</td>
                             <td>{{ $item->sta_date }}</td>
                             <td>{{ $item->exp_date }}</td>
