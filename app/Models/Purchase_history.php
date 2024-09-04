@@ -13,6 +13,11 @@ class Purchase_history extends Model
     protected $fillable = [
         'card_id',
         'product_id',
+        'product_name',
+        'emp',
         'date_of_buy',
     ];
 }
+
+
+

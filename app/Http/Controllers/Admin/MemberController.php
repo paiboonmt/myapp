@@ -7,7 +7,9 @@ use App\Models\Member;
 use App\Models\Nationality;
 use App\Models\Product;
 use App\Models\Purchase_history;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
@@ -27,6 +29,7 @@ class MemberController extends Controller
             ->join('nationalities','members.nationality','=','nationalities.id')
             ->select('members.*', 'products.name AS pname', 'nationalities.name AS nname')
             ->get();
+
         return view('admin.member', compact('title','data'));
     }
 
@@ -34,7 +37,8 @@ class MemberController extends Controller
         $title = 'Create Member';
         $na = Nationality::all();
         $pro = Product::all();
-        return view('admin.member_create', compact('title','na','pro'));   
+        $card_id = (int) (microtime(true) * 10000);
+        return view('admin.member_create', compact('title','na','pro','card_id'));   
     }
 
     public function save( Request $request ){
@@ -70,7 +74,9 @@ class MemberController extends Controller
 
             Purchase_history::create([
                     "card_id" => $request->card_id,
-                    "product_id" => $request->visa_id,
+                    "product_id" => $request->product,
+                    "product_name" => $request->product,
+                    "emp" => Auth::user()->name,
                     "date_of_buy" => date('Y-m-d'),
             ]);
 
@@ -78,7 +84,30 @@ class MemberController extends Controller
 
         
 
-        return to_route('admin.member');
+        return to_route('admin.member',session()->flash('add-member'));
 
+    }
+
+    public function show( string $id){
+       
+        $data = Member::where('id',$id)->first();
+        $ph = Purchase_history::where('card_id',$data->card_id)->get();
+
+        // join table member and product 
+        $data1 = DB::table('members')
+            ->join('products','members.product','=','products.id')
+            ->join('nationalities','members.nationality','=','nationalities.id')
+            ->where('members.id',$id)
+            ->select('members.*', 'products.name AS pname', 'nationalities.name AS nname')
+            ->get();
+        $title = "Profile " . $data->fname;
+        
+        $startDate = Carbon::create($data1[0]->sta_date);
+        $endDate = Carbon::create($data1[0]->exp_date);
+
+        $diffInDays = (int) $startDate->diffInDays($endDate);
+
+
+        return view('admin.member_profile',compact('title','data','ph','data1','diffInDays'));
     }
 }

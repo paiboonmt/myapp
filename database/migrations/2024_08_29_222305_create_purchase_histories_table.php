@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('card_id');
             $table->string('product_id');
+            $table->string('product_name');
+            $table->string('emp');
             $table->date('date_of_buy');
             $table->timestamps();
         });

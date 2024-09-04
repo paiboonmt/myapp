@@ -3,7 +3,8 @@
 <style>
     .image-circle{
         border-radius: 50px;
-        height: 50px;
+        height: 80px;
+        width: 80px;
         padding: 5px
 
     }
@@ -27,14 +28,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $i = 1;
-                    @endphp
+                    @php $i = 1; @endphp
                     @foreach ($data as $item)
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>
-                                <img src="{{ asset('images/customer/'.$item->image) }}" class="image-circle">
+                                <a href="{{ route('admin.member_profile',$item->id )}}">
+                                    <img src="{{ asset('images/customer/'.$item->image) }}" class="image-circle">
+                                </a>
                             </td>
                             <td>{{ $item->card_id }}</td>
                             <td>{{ $item->fname }}</td>
@@ -53,3 +54,20 @@
 
 
 @include('admin.footer')
+
+@if (session('add-member'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Create Member Successfully.'
+            })
+        });
+    </script>
+@endif

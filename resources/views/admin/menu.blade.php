@@ -46,9 +46,10 @@
 
                   {{-- member system --}}
                   <li
-                      class="nav-item {{ Request::is(['admin/member', 'admin/member_create', 'admin/capture']) ? 'menu-open' : '' }}">
+                      {{-- class="nav-item {{ Request::is(['admin/member', 'admin/member_create', 'admin/capture']) ? 'menu-open' : '' }}"> --}}
+                      class="nav-item {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile']) ? 'menu-open' : '' }}">
                       <a href="#"
-                          class="nav-link {{ Request::is(['admin/member', 'admin/member_create', 'admin/capture']) ? 'active' : '' }}">
+                          class="nav-link {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile']) ? 'active' : '' }}">
                           <i class="fas fa-users-cog nav-icon"></i>
                           <p>Member System
                               <i class="right fas fa-angle-left"></i>
@@ -57,18 +58,20 @@
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
                               <a href="{{ route('admin.member') }}"
-                                  class="nav-link {{ Request::is(['admin/member']) ? 'active' : '' }}">
+                                  class="nav-link {{ request()->routeIs(['admin.member','admin.member_profile']) ? 'active' : '' }}">
                                   <i class="fas fa-users-cog nav-icon"></i>
                                   <p>Member</p>
                               </a>
                           </li>
+
                           <li class="nav-item">
                               <a href="{{ route('admin.member_create') }}"
-                                  class="nav-link {{ Request::is(['admin/member_create']) ? 'active' : '' }}">
+                                  class="nav-link {{ request()->routeIs('admin.member_create') ? 'active' : '' }}">
                                   <i class="fas fa-user-plus nav-icon"></i>
                                   <p>create Member</p>
                               </a>
                           </li>
+
                           {{-- <li class="nav-item">
                               <a href="{{ route('admin.capture') }}"
                                   class="nav-link {{ Request::is(['admin/capture']) ? 'active' : '' }}">
@@ -82,7 +85,7 @@
                   {{-- product --}}
                   <li class="nav-item">
                     <a href="{{ route('admin.product') }}"
-                        class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.product') ? 'active' : '' }}">
                         <i class="fab fa-product-hunt nav-icon"></i>
                         <p>product</p>
                     </a>
@@ -91,7 +94,7 @@
                   {{-- nationality --}}
                   <li class="nav-item">
                     <a href="{{ route('admin.nationality') }}"
-                        class="nav-link {{ Request::is('admin/nationality') ? 'active' : '' }}">
+                        class="nav-link {{ request()->routeIs('admin.nationality') ? 'active' : '' }}">
                         <i class="fas fa-language nav-icon"></i>
                         <p>nationality</p>
                     </a>
@@ -100,7 +103,7 @@
                   {{-- topup --}}
                   <li class="nav-item">
                       <a href="{{ route('admin.topup-monney') }}"
-                          class="nav-link {{ Request::is(['admin/topup-monney', 'admin/topup']) ? 'active' : '' }}">
+                          class="nav-link {{ request()->routeIs(['admin.topup-monney', 'admin.topup']) ? 'active' : '' }}">
                           <i class="fas fa-money-bill-alt nav-icon"></i>
                           <p>Shop System</p>
                       </a>

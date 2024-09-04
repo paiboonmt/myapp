@@ -37,12 +37,15 @@ Route::middleware(['auth','user'])->group(function () {
 // admin routes
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+
     // route('admin.member)
     Route::get('/admin/member',[MemberController::class,'index'])->name('admin.member');
     // route('admin.member)
     Route::get('/admin/member_create',[MemberController::class,'create'])->name('admin.member_create');
     // route('admin.member_save')
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
+    // route('admin.member_profile')
+    Route::get('/admin.member_profile/{id}',[MemberController::class,'show'])->name('admin.member_profile');
 
     // route('admin.product')
     Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');
