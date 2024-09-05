@@ -1,19 +1,42 @@
 @include('admin.header')
 
+<style>
+    .nav-item-sub{
+        padding: 5px;
+    }
+</style>
 
 <div class="row">
     <div class="col p-1">
         <div class="card">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#Profile" data-toggle="tab">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#Profile" data-toggle="tab">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Product" data-toggle="tab">Product History</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#Record" data-toggle="tab">Record</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#Record" data-toggle="tab">Record</a></li> --}}
                     <li class="nav-item"><a class="nav-link" href="#document" data-toggle="tab">Document</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#action" data-toggle="tab">Action</a></li>
                 </ul>
             </div>
             <div class="card-body">
                 <div class="tab-content">
+
+                    <div class="tab-pane" id="action">
+                        <div class="row">
+                            <ul>
+                                <li class="nav-item-sub">
+                                    <a href="#" class="btn btn-info">Edit Profile</a>
+                                </li>
+                                <li class="nav-item-sub">
+                                    <a href="#" class="btn btn-info">Edit Document</a>
+                                </li>
+                                <li class="nav-item-sub">
+                                    <a href="#" class="btn btn-danger">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="tab-pane active" id="Profile">
                         <div class="row">
                             <div class="col-md-8">
@@ -140,7 +163,11 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Expiry</span>
                                             </div>
-                                            <input type="text" value="{{ $diffInDays }} Day" class="form-control">
+                                            @if ( $diffInDays >= 0)
+                                                <input type="text" value="{{ $diffInDays }} Day" class="form-control bg-success">
+                                            @else
+                                                <input type="text" value="{{ $diffInDays }} Day" class="form-control bg-danger">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -181,12 +208,12 @@
                                 @php
                                     $i=1;
                                 @endphp
-                                @foreach ($ph as $phi)
+                                @foreach ($ph as $item)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $phi-> }}</td>
-                                        <td>{{ $phi->date_of_buy }}</td>
-                                        <td>{{ Auth::user()->name }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->date_of_buy }}</td>
+                                        <td>{{ $item->emp }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

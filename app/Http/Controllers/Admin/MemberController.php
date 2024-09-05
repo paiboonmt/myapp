@@ -79,11 +79,7 @@ class MemberController extends Controller
                     "emp" => Auth::user()->name,
                     "date_of_buy" => date('Y-m-d'),
             ]);
-
         }
-
-        
-
         return to_route('admin.member',session()->flash('add-member'));
 
     }
@@ -91,7 +87,6 @@ class MemberController extends Controller
     public function show( string $id){
        
         $data = Member::where('id',$id)->first();
-        $ph = Purchase_history::where('card_id',$data->card_id)->get();
 
         // join table member and product 
         $data1 = DB::table('members')
@@ -100,13 +95,19 @@ class MemberController extends Controller
             ->where('members.id',$id)
             ->select('members.*', 'products.name AS pname', 'nationalities.name AS nname')
             ->get();
+
+        // Join table purchase_histories and products
+        $ph = DB::table('purchase_histories')
+            ->join('products','purchase_histories.product_id','=','products.id')
+            ->where('card_id',$data->card_id)
+            ->select('products.name','purchase_histories.*')
+            ->get();
+
         $title = "Profile " . $data->fname;
-        
-        $startDate = Carbon::create($data1[0]->sta_date);
+        // $startDate = Carbon::create($data1[0]->sta_date);
+        $startDate = Carbon::create(date('Y-m-d'));
         $endDate = Carbon::create($data1[0]->exp_date);
-
         $diffInDays = (int) $startDate->diffInDays($endDate);
-
 
         return view('admin.member_profile',compact('title','data','ph','data1','diffInDays'));
     }
