@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form action="{{ route('admin.member_save') }}" method="post" enctype="multipart/form-data" >
+            <form action="{{ route('admin.member_update' , $data->id ) }}" method="post" enctype="multipart/form-data" >
 
                 @csrf
                 <div class="row">
@@ -17,18 +17,16 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Card number</span>
                                     </div>
-                                    <input type="number" class="form-control" name="card_id"
-                                        value="{{ $card_id }}">
+                                    <input type="number" class="form-control" readonly name="card_id" value="{{ $data->card_id }}">
                                 </div>
                                 {{-- <span class="error invalid-feedback">{{$message}}</span> --}}
                             </div>
                             <div class="col-6">
                                 <div class="input-group mb-2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">Visa number</span>
+                                        <span class="input-group-text">Visa number</span>
                                     </div>
-                                    <input type="text" class="form-control" name="visa_id"
-                                        value="{{ 'adc'.rand(100000, 200000).'dx' }}">
+                                    <input type="text" class="form-control" readonly name="visa_id" value="{{ $data->visa_id }}">
                                 </div>
                             </div>
                         </div>
@@ -40,6 +38,7 @@
                                         <span class="input-group-text">Gender</span>
                                     </div>
                                     <select name="gender" class="form-control">
+                                        <option value="{{ $data->gender }}">{{ $data->gender }}</option>
                                         <option value="Man">Man</option>
                                         <option value="Girl">Girl</option>
                                     </select>
@@ -50,7 +49,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">First name | Last name</span>
                                     </div>
-                                    <input type="text" class="form-control" name="fname" value="Paiboon Yaniwong">
+                                    <input type="text" class="form-control" name="fname" value="{{ $data->fname }}">
                                 </div>
                                 {{-- <span class="error invalid-feedback">{{ $message }}</span> --}}
                             </div>
@@ -63,8 +62,9 @@
                                         <span class="input-group-text">Product</span>
                                     </div>
                                     <select name="product" class="form-control">
-                                        @foreach ($pro as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                        <option value="{{ $product[0]->pname }}">{{ $product[0]->pname }}</option>
+                                        @foreach ($products as $pro)
+                                            <option value="{{ $pro->id }}">{{ $pro->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -77,7 +77,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Birth Day</span>
                                     </div>
-                                    <input type="date" name="birthday" value="{{ date('Y-m-d') }}" class="form-control">
+                                    <input type="date" name="birthday" class="form-control" value="{{ $data->birthday }}">
                                 </div>
                             </div>
                             <div class="col-7">
@@ -86,8 +86,9 @@
                                         <span class="input-group-text" id="basic-addon1">Nationality</span>
                                     </div>
                                     <select name="nationality" class="form-control">
-                                        @foreach ( $na as $n )
-                                            <option value="{{ $n->id }}">{{ $n->name }}</option>
+                                        <option value="{{ $product[0]->nname }}">{{ $product[0]->nname }}</option>
+                                        @foreach ($nation as $n)
+                                            <option value="{{ $n->name }}">{{ $n->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -100,8 +101,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Phone</span>
                                     </div>
-                                    <input type="text" name="phone"
-                                        value="{{ '+66 - ' . rand('09800000000', '9900000000') }}" class="form-control">
+                                    <input type="text" name="phone" value="{{ $data->phone }}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-7">
@@ -109,7 +109,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Eamil</span>
                                     </div>
-                                    <input type="text" name="email" value="admin@local.com" class="form-control">
+                                    <input type="text" name="email" value="{{ $data->email }}" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Start Training</span>
                                     </div>
-                                    <input type="date" name="sta_date" value="{{ date('Y-m-d') }}" class="form-control">
+                                    <input type="date" name="sta_date" value="{{ $data->sta_date }}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -128,7 +128,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Expiry date</span>
                                     </div>
-                                    <input type="date" name="exp_date" value="{{ date('Y-m-d') }}" class="form-control">
+                                    <input type="date" name="exp_date" value="{{ $data->exp_date }}" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -136,12 +136,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <textarea class="form-control" name="address" placeholder="Address" rows="5">Thailand , Phuket 7/35 </textarea>
+                                    <textarea class="form-control" name="address" placeholder="Address" rows="5">{{ $data->address }}</textarea>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <textarea class="form-control" name="comment" placeholder="Comment" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam veritatis, facere in porro ullam saepe mollitia nihil a eaque accusantium.</textarea>
+                                    <textarea class="form-control" name="comment" placeholder="Comment" rows="5">{{ $data->comment }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -153,10 +153,11 @@
                         <div class="row mb-2">
                             {{-- <img src="{{ asset('images/image-logo.png') }}" width="100%"> --}}
                             <div id="imagePreview">
-                                <img id="preview" src="#" alt="Image Preview" style="display:none;" width="100%">
+                                <img id="preview" src="{{ asset('images/customer/' . $data->image) }}" width="100%">
                             </div>
                         </div>
                         <div class="row">
+                            <input type="text" hidden name="old_image" value="{{ $data->image }}">
                             <input type="file" name="image" class="form-control" id="imageUpload" accept="image/*">
                         </div>
                         @error('image')
@@ -173,7 +174,7 @@
 
                 <div class="row mt-3">
                     <div class="col">
-                        <button class="btn btn-info form-control">SAVE DATA</button>
+                        <button class="btn btn-success form-control">UPDATE DATA</button>
                     </div>
                 </div>
 
@@ -189,7 +190,7 @@
     document.getElementById('imageUpload').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
-    
+
     reader.onload = function(e) {
         const preview = document.getElementById('preview');
         preview.src = e.target.result;

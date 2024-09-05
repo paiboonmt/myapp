@@ -47,9 +47,9 @@
                   {{-- member system --}}
                   <li
                       {{-- class="nav-item {{ Request::is(['admin/member', 'admin/member_create', 'admin/capture']) ? 'menu-open' : '' }}"> --}}
-                      class="nav-item {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile']) ? 'menu-open' : '' }}">
+                      class="nav-item {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile','admin.member_edit']) ? 'menu-open' : '' }}">
                       <a href="#"
-                          class="nav-link {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile']) ? 'active' : '' }}">
+                          class="nav-link {{ request()->routeIs(['admin.member', 'admin.member_create', 'admin.member_profile','admin.member_edit']) ? 'active' : '' }}">
                           <i class="fas fa-users-cog nav-icon"></i>
                           <p>Member System
                               <i class="right fas fa-angle-left"></i>
@@ -58,7 +58,7 @@
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
                               <a href="{{ route('admin.member') }}"
-                                  class="nav-link {{ request()->routeIs(['admin.member','admin.member_profile']) ? 'active' : '' }}">
+                                  class="nav-link {{ request()->routeIs(['admin.member','admin.member_profile','admin.member_edit']) ? 'active' : '' }}">
                                   <i class="fas fa-users-cog nav-icon"></i>
                                   <p>Member</p>
                               </a>

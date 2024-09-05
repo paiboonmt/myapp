@@ -46,6 +46,10 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
     // route('admin.member_profile')
     Route::get('/admin.member_profile/{id}',[MemberController::class,'show'])->name('admin.member_profile');
+    // route('admin.member_edit')
+    Route::get('/admin.member_edit/{id}',[MemberController::class,'edit'])->name('admin.member_edit');
+    // route('admin.member_update')
+    Route::post('/admin.member_update/{id}',[MemberController::class,'update'])->name('admin.member_update');
 
     // route('admin.product')
     Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');

@@ -11,11 +11,11 @@
         <div class="card">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link" href="#Profile" data-toggle="tab">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#Profile" data-toggle="tab">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Product" data-toggle="tab">Product History</a></li>
                     {{-- <li class="nav-item"><a class="nav-link" href="#Record" data-toggle="tab">Record</a></li> --}}
                     <li class="nav-item"><a class="nav-link" href="#document" data-toggle="tab">Document</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#action" data-toggle="tab">Action</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#action" data-toggle="tab">Action</a></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -25,7 +25,7 @@
                         <div class="row">
                             <ul>
                                 <li class="nav-item-sub">
-                                    <a href="#" class="btn btn-info">Edit Profile</a>
+                                    <a href="{{ route('admin.member_edit', $data->id) }}" class="btn btn-info">Edit Profile</a>
                                 </li>
                                 <li class="nav-item-sub">
                                     <a href="#" class="btn btn-info">Edit Document</a>
@@ -88,9 +88,9 @@
                                                 <span class="input-group-text">Product</span>
                                             </div>
                                             <select name="product" class="form-control">
-            
+
                                                 <option >{{  $data1[0]->pname }}</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
@@ -112,9 +112,9 @@
                                                 <span class="input-group-text" >Nationality</span>
                                             </div>
                                             <select name="nationality" class="form-control">
-            
+
                                                 <option>{{ $data1[0]->nname }}</option>
-            
+
                                             </select>
                                         </div>
                                     </div>
