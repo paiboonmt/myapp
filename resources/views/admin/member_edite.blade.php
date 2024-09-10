@@ -2,8 +2,10 @@
 
 <div class="col p-1">
     <div class="card">
+        <div class="card-header bg-danger">
+            Update profile page
+        </div>
         <div class="card-body">
-
             <form action="{{ route('admin.member_update' , $data->id ) }}" method="post" enctype="multipart/form-data" >
 
                 @csrf
@@ -62,10 +64,10 @@
                                         <span class="input-group-text">Product</span>
                                     </div>
                                     <select name="product" class="form-control">
-                                        <option value="{{ $product[0]->pname }}">{{ $product[0]->pname }}</option>
-                                        @foreach ($products as $pro)
-                                            <option value="{{ $pro->id }}">{{ $pro->name }}</option>
-                                        @endforeach
+                                           <option value="{{ $product->product_id  }}">{{ $product->name  }}</option>
+                                           @foreach ($products as $p)
+                                               <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                           @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -86,9 +88,9 @@
                                         <span class="input-group-text" id="basic-addon1">Nationality</span>
                                     </div>
                                     <select name="nationality" class="form-control">
-                                        <option value="{{ $product[0]->nname }}">{{ $product[0]->nname }}</option>
-                                        @foreach ($nation as $n)
-                                            <option value="{{ $n->name }}">{{ $n->name }}</option>
+                                        <option value="{{ $nation->id}}">{{ $nation->name}}</option>
+                                        @foreach ($nationalities as $n)
+                                            <option value="{{ $n->id }}">{{ $n->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -179,7 +181,6 @@
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>

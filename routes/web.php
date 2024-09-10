@@ -45,11 +45,19 @@ Route::middleware(['auth','admin'])->group(function () {
     // route('admin.member_save')
     Route::post('admin/member_save',[MemberController::class,'save'])->name('admin.member_save');
     // route('admin.member_profile')
-    Route::get('/admin.member_profile/{id}',[MemberController::class,'show'])->name('admin.member_profile');
+    Route::get('/admin/member_profile/{id}',[MemberController::class,'show'])->name('admin.member_profile');
     // route('admin.member_edit')
-    Route::get('/admin.member_edit/{id}',[MemberController::class,'edit'])->name('admin.member_edit');
+    Route::get('/admin/member_edit/{id}',[MemberController::class,'edit'])->name('admin.member_edit');
     // route('admin.member_update')
-    Route::post('/admin.member_update/{id}',[MemberController::class,'update'])->name('admin.member_update');
+    Route::post('/admin/member_update/{id}',[MemberController::class,'update'])->name('admin.member_update');
+    // route('admin.member_destoy')
+    Route::delete('/admin/member_destroy/{id}',[MemberController::class,'destroy'])->name('admin.member_destroy');
+    // route('admin.pur_destroy')
+    Route::post('/admin/pur_destroy/{id}',[MemberController::class,'pur_destroy'])->name('admin.pur_destroy');
+
+
+
+
 
     // route('admin.product')
     Route::get('/admin/product',[ProductController::class,'index'])->name('admin.product');

@@ -13,7 +13,6 @@
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a class="nav-link active" href="#Profile" data-toggle="tab">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Product" data-toggle="tab">Product History</a></li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="#Record" data-toggle="tab">Record</a></li> --}}
                     <li class="nav-item"><a class="nav-link" href="#document" data-toggle="tab">Document</a></li>
                     <li class="nav-item"><a class="nav-link" href="#action" data-toggle="tab">Action</a></li>
                 </ul>
@@ -31,13 +30,16 @@
                                     <a href="#" class="btn btn-info">Edit Document</a>
                                 </li>
                                 <li class="nav-item-sub">
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    {{-- <a href="#" class="btn btn-danger">Delete</a> --}}
+                                    <button class="btn btn-danger delete-button" data-id="{{ $data->id }}">
+                                        <i class="fas fa-trash-alt"> | Delete</i>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="tab-pane active" id="Profile">
+                    <div class="tab-pane active " id="Profile">
                         <div class="row">
                             <div class="col-md-8">
                                 {{-- card_id , visa_id --}}
@@ -88,9 +90,7 @@
                                                 <span class="input-group-text">Product</span>
                                             </div>
                                             <select name="product" class="form-control">
-
-                                                <option >{{  $data1[0]->pname }}</option>
-
+                                                <option>{{ $product[0]->name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -102,8 +102,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" >Birth Day</span>
                                             </div>
-                                            <input type="date" name="birthday" value="{{ $data->birthday }}"
-                                                class="form-control">
+                                            <input type="date" name="birthday" value="{{ $data->birthday }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-7">
@@ -112,9 +111,7 @@
                                                 <span class="input-group-text" >Nationality</span>
                                             </div>
                                             <select name="nationality" class="form-control">
-
-                                                <option>{{ $data1[0]->nname }}</option>
-
+                                                <option>{{ $nation->name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -194,7 +191,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="Product">
+                    <div class="tab-pane " id="Product">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -202,6 +199,7 @@
                                     <th>Product</th>
                                     <th>Date of buy</th>
                                     <th>Employee</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -214,6 +212,14 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->date_of_buy }}</td>
                                         <td>{{ $item->emp }}</td>
+                                        <td>
+                                            <form action="{{ route('admin.pur_destroy',$item->id )}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="text" hidden  name="member_id" value="{{ $data->id }}">
+                                                <button class="btn btn-danger">Delte</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -235,3 +241,66 @@
 </div>
 
 @include('admin.footer')
+
+@if (session('update'))
+    <script>
+        $(function() {
+            Swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success",
+                timer:1500,
+            });
+        });
+    </script>
+@endif
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event listener for delete button
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function () {
+                var itemId = this.getAttribute('data-id');
+
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Make AJAX request to delete the item
+                        $.ajax({
+                            url: '/admin/member_destroy/' + itemId,  // URL to your delete route
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'  // Include CSRF token
+                            },
+                            success: function (response) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your item has been deleted.',
+                                    'success',
+                                ).then((result) =>{
+                                    // location.reload();
+                                    window.location.href = '/admin/member';
+                                })
+                            },
+                            error: function (xhr) {
+                                Swal.fire(
+                                    'Failed!',
+                                    'There was a problem deleting your item.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>
